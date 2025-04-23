@@ -13,7 +13,7 @@ Focus areas include Service Control Policy (SCP) validation, permission auditing
 - Helper scripts for working with AWS Organizations and Identity Center
 - Easily extensible for custom IAM workflows
 
-## Usage
+## Usage (scp_validator.py)
 
 ```bash
 # Example: validate an SCP file
