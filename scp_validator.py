@@ -84,3 +84,17 @@ def validate_json_schema(json_data, schema):
         sys.exit(1)
 
 
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python validate_json.py <path_to_json_file>")
+        sys.exit(1)
+
+    filepath = sys.argv[1]
+    json_data = load_json_file(filepath)
+    schema = get_scp_schema()
+    validate_json_schema(json_data, schema)
+
+
+if __name__ == "__main__":
+    main()
