@@ -17,4 +17,4 @@ Focus areas include Service Control Policy (SCP) validation, permission auditing
 
 ```bash
 # Example: validate an SCP file
-python validate_scp.py <path-to-scp.json>
+python scp_validator.py <path-to-scp.json>
