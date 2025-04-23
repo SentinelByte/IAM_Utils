@@ -19,7 +19,10 @@ def load_json_file(filepath):
 
 
 def get_scp_schema():
-    """Return a basic JSON schema for validating AWS SCP structure."""
+    """
+    Return a basic JSON schema for validating AWS SCP structure.
+    Reference - https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html
+    """
     return {
         "type": "object",
         "properties": {
