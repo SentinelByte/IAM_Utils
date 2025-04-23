@@ -60,3 +60,27 @@ def get_scp_schema():
         "additionalProperties": False
     }
 
+
+
+def validate_json_schema(json_data, schema):
+    """Validate JSON data and report all schema issues."""
+    try:
+        validator = Draft7Validator(schema)
+    except SchemaError as e:
+        print("Schema error: The provided schema is invalid.")
+        print(f"Details: {e}")
+        sys.exit(1)
+
+    errors = sorted(validator.iter_errors(json_data), key=lambda e: list(e.path))
+
+    if not errors:
+        print("Validation successful: JSON structure is valid.")
+    else:
+        print(f"Validation failed: {len(errors)} issue(s) found.")
+        for i, error in enumerate(errors, start=1):
+            location = ".".join([str(x) for x in error.absolute_path]) or "<root>"
+            print(f"{i}. Location: {location}")
+            print(f"   Error: {error.message}")
+        sys.exit(1)
+
+
