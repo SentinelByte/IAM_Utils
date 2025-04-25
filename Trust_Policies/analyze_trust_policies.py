@@ -80,3 +80,30 @@ def analyze_trust_policy(policy_doc: Dict, role_name: str) -> List[Dict]:
                         })
     return findings
 
+
+def get_account_id() -> str:
+    """Get the AWS account ID of the current caller."""
+    sts = boto3.client('sts')
+    return sts.get_caller_identity()['Account']
+
+
+def main():
+    print("Scanning IAM roles for risky trust policies...")
+    roles = list_roles()
+    all_findings = []
+
+    for role in roles:
+        role_name = role['RoleName']
+        trust_policy = role['AssumeRolePolicyDocument']
+        findings = analyze_trust_policy(trust_policy, role_name)
+        all_findings.extend(findings)
+
+    if all_findings:
+        print("\nFindings:")
+        for finding in all_findings:
+            print(f"- Role: {finding['role']}, Risk: {finding['risk']}, Reason: {finding['reason']}")
+    else:
+        print("No risky trust policies found.")
+
+if __name__ == "__main__":
+    main()
